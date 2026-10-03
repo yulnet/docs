@@ -1,0 +1,783 @@
+<!DOCTYPE html>
+<html lang="ru" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Гарантия возврата средств | YulNET</title>
+  <link rel="icon" type="image/png" href="/favicon.png">
+  <link rel="apple-touch-icon" href="/favicon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              400: '#5374ff',
+              500: '#2b4cff',
+              600: '#1a2fff',
+              700: '#0c1ad6',
+              800: '#0a12a8',
+              900: '#060d3d',
+              glow: '#4361ee'
+            },
+            dark: {
+              950: '#030712',
+              900: '#080c1e',
+              850: '#0d132b',
+              800: '#121a3a'
+            }
+          },
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'system-ui', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'monospace']
+          },
+          boxShadow: {
+            'neon': '0 0 30px -5px rgba(43, 76, 255, 0.55)',
+            'neon-lg': '0 0 60px -10px rgba(43, 76, 255, 0.8)',
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body {
+      background-color: #030712;
+      color: #f1f5f9;
+      overflow-x: hidden;
+    }
+
+    .glass-panel {
+      background: rgba(13, 19, 43, 0.45);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid rgba(67, 97, 238, 0.15);
+      transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .poly-gradient-text {
+      background: linear-gradient(135deg, #ffffff 30%, #9cb3ff 70%, #2b4cff 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .scroll-anim {
+      opacity: 1;
+      transform: translateY(0);
+      transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .scroll-anim.visible { opacity: 1; transform: translateY(0); }
+    .delay-100 { transition-delay: 100ms; }
+    .delay-200 { transition-delay: 200ms; }
+    .delay-300 { transition-delay: 300ms; }
+    .delay-400 { transition-delay: 400ms; }
+
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: #030712; }
+    ::-webkit-scrollbar-thumb { background: #1d2753; border-radius: 4px; }
+    ::-webkit-scrollbar-thumb:hover { background: #2b4cff; }
+
+    #mobileMenu {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s ease-out;
+    }
+    #mobileMenu.open { max-height: 500px; }
+
+    #scrollProgress {
+      position: fixed;
+      top: 0; left: 0;
+      height: 2px;
+      background: linear-gradient(90deg, #2b4cff, #5374ff);
+      box-shadow: 0 0 12px #2b4cff;
+      z-index: 100;
+      width: 0;
+      transition: width 0.1s linear;
+    }
+
+    #backToTop {
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s, transform 0.3s;
+      transform: translateY(20px);
+    }
+    #backToTop.visible {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateY(0);
+    }
+
+    .policy-content h2 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #ffffff;
+      margin-top: 2.5rem;
+      margin-bottom: 1rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid rgba(67, 97, 238, 0.2);
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .policy-content h2::before {
+      content: '§';
+      color: #5374ff;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 1.25rem;
+    }
+
+    .policy-content h3 {
+      font-size: 1.125rem;
+      font-weight: 600;
+      color: #9cb3ff;
+      margin-top: 1.75rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .policy-content p {
+      color: #94a3b8;
+      font-size: 0.9375rem;
+      line-height: 1.8;
+      margin-bottom: 1rem;
+    }
+
+    .policy-content ul, .policy-content ol {
+      color: #94a3b8;
+      font-size: 0.9375rem;
+      line-height: 1.8;
+      margin-bottom: 1rem;
+      padding-left: 1.5rem;
+    }
+
+    .policy-content li {
+      margin-bottom: 0.5rem;
+    }
+
+    .policy-content strong {
+      color: #e2e8f0;
+      font-weight: 600;
+    }
+
+    .policy-content a {
+      color: #5374ff;
+      text-decoration: underline;
+      text-underline-offset: 2px;
+      transition: color 0.2s;
+    }
+
+    .policy-content a:hover {
+      color: #9cb3ff;
+    }
+
+    .policy-content .highlight-box {
+      background: rgba(43, 76, 255, 0.08);
+      border-left: 3px solid #2b4cff;
+      padding: 1rem 1.25rem;
+      border-radius: 0 0.5rem 0.5rem 0;
+      margin: 1.5rem 0;
+    }
+
+    .policy-content .highlight-box p {
+      margin-bottom: 0;
+      color: #cbd5e1;
+    }
+
+    .policy-content .warning-box {
+      background: rgba(239, 68, 68, 0.08);
+      border-left: 3px solid #ef4444;
+      padding: 1rem 1.25rem;
+      border-radius: 0 0.5rem 0.5rem 0;
+      margin: 1.5rem 0;
+    }
+
+    .policy-content .warning-box p {
+      margin-bottom: 0;
+      color: #fca5a5;
+    }
+
+    .policy-content .success-box {
+      background: rgba(34, 197, 94, 0.08);
+      border-left: 3px solid #22c55e;
+      padding: 1rem 1.25rem;
+      border-radius: 0 0.5rem 0.5rem 0;
+      margin: 1.5rem 0;
+    }
+
+    .policy-content .success-box p {
+      margin-bottom: 0;
+      color: #86efac;
+    }
+
+    .toc a {
+      color: #94a3b8;
+      text-decoration: none;
+      font-size: 0.875rem;
+      display: block;
+      padding: 0.375rem 0;
+      border-left: 2px solid transparent;
+      padding-left: 0.75rem;
+      transition: all 0.2s;
+    }
+
+    .toc a:hover {
+      color: #ffffff;
+      border-left-color: #2b4cff;
+      background: rgba(43, 76, 255, 0.05);
+    }
+
+    .last-updated {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.5rem 1rem;
+      background: rgba(43, 76, 255, 0.1);
+      border: 1px solid rgba(67, 97, 238, 0.2);
+      border-radius: 100px;
+      font-size: 0.75rem;
+      color: #9cb3ff;
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    .step-card {
+      background: rgba(13, 19, 43, 0.5);
+      border: 1px solid rgba(67, 97, 238, 0.15);
+      border-radius: 1rem;
+      padding: 1.5rem;
+      transition: all 0.3s;
+    }
+    .step-card:hover {
+      border-color: rgba(67, 97, 238, 0.4);
+      transform: translateY(-2px);
+    }
+    .step-number {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 2.5rem;
+      height: 2.5rem;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #2b4cff, #5374ff);
+      color: white;
+      font-weight: 700;
+      font-size: 1.125rem;
+      margin-bottom: 1rem;
+      box-shadow: 0 0 20px -5px rgba(43, 76, 255, 0.6);
+    }
+  </style>
+</head>
+<body class="antialiased selection:bg-brand-500 selection:text-white">
+
+  <div id="scrollProgress"></div>
+
+  <div class="fixed -top-40 -left-40 w-[600px] h-[600px] bg-brand-600/20 rounded-full blur-[150px] pointer-events-none z-0"></div>
+  <div class="fixed bottom-0 right-0 w-[700px] h-[700px] bg-brand-500/10 rounded-full blur-[180px] pointer-events-none z-0"></div>
+
+  <header class="fixed top-0 z-50 w-full backdrop-blur-xl bg-dark-950/80 border-b border-brand-500/10">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+      <a href="/" class="flex items-center group">
+        <span class="text-2xl font-extrabold tracking-tight poly-gradient-text transition-transform duration-300 group-hover:scale-105">YulNET</span>
+      </a>
+
+      <div class="flex items-center gap-8">
+        <nav class="hidden md:flex items-center gap-8 text-sm font-medium text-slate-300">
+          <a href="/#features" class="hover:text-white transition-colors duration-200">Преимущества</a>
+          <a href="/#servers" class="hover:text-white transition-colors duration-200">Сервера</a>
+          <a href="/#pricing" class="hover:text-white transition-colors duration-200">Цены</a>
+          <a href="/#faq" class="hover:text-white transition-colors duration-200">FAQ</a>
+        </nav>
+
+        <a href="https://lk.yullk.store" class="hidden sm:inline-flex px-5 py-2.5 rounded-lg bg-brand-500 hover:bg-brand-600 text-white font-semibold text-sm shadow-neon transition-all duration-300 transform hover:-translate-y-0.5">
+          Личный кабинет
+        </a>
+
+        <button id="mobileMenuBtn" aria-label="Открыть меню" class="md:hidden text-slate-300 hover:text-white p-2 rounded-lg hover:bg-dark-800/80 transition-colors focus:outline-none">
+          <span id="menuIconWrapper">
+            <i data-lucide="menu" class="w-6 h-6"></i>
+          </span>
+        </button>
+      </div>
+    </div>
+
+    <div id="mobileMenu" class="md:hidden border-b border-brand-500/10 bg-dark-950/95 backdrop-blur-2xl px-6">
+      <nav class="flex flex-col gap-2 text-base font-medium text-slate-300 py-4">
+        <a href="/#features" class="mobile-link hover:text-white transition-colors py-3 border-b border-slate-800/60">Преимущества</a>
+        <a href="/#servers" class="mobile-link hover:text-white transition-colors py-3 border-b border-slate-800/60">Сервера</a>
+        <a href="/#pricing" class="mobile-link hover:text-white transition-colors py-3 border-b border-slate-800/60">Цены</a>
+        <a href="/#faq" class="mobile-link hover:text-white transition-colors py-3 border-b border-slate-800/60">FAQ</a>
+        <a href="https://t.me/yulnet_bot" class="mobile-link w-full text-center mt-4 px-5 py-3 rounded-xl bg-brand-500 hover:bg-brand-600 text-white font-semibold text-sm shadow-neon transition-all">
+          Личный кабинет
+        </a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="pt-32 pb-24 relative z-10">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+      <div class="max-w-4xl mx-auto">
+        <div class="scroll-anim mb-8">
+          <a href="/" class="inline-flex items-center gap-2 text-sm text-slate-400 hover:text-brand-400 transition-colors mb-6 group">
+            <i data-lucide="arrow-left" class="w-4 h-4 group-hover:-translate-x-1 transition-transform"></i>
+            На главную
+          </a>
+          <div class="last-updated mb-6">
+            <i data-lucide="calendar" class="w-3.5 h-3.5"></i>
+            Последнее обновление: 2 октября 2026 г.
+          </div>
+          <h1 class="text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight leading-[1.1] mb-6">
+            Гарантия <span class="poly-gradient-text">возврата средств</span>
+          </h1>
+          <p class="text-lg text-slate-400 max-w-3xl leading-relaxed">
+            YulNET предоставляет гарантию возврата средств в течение 7 календарных дней с момента оплаты подписки. Мы хотим, чтобы вы были уверены в качестве нашего сервиса, и поэтому даём возможность отказаться от подписки без лишних вопросов и формальностей, если услуга вам не подошла.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-10 scroll-anim delay-100">
+          <div class="step-card">
+            <div class="step-number">7</div>
+            <h3 class="text-white font-bold mb-2">Дней на возврат</h3>
+            <p class="text-slate-400 text-sm leading-relaxed">С момента оплаты подписки — без объяснения причин.</p>
+          </div>
+          <div class="step-card">
+            <div class="step-number">24ч</div>
+            <h3 class="text-white font-bold mb-2">Скорость обработки</h3>
+            <p class="text-slate-400 text-sm leading-relaxed">Заявки рассматриваются в течение 24 часов в рабочие дни.</p>
+          </div>
+          <div class="step-card">
+            <div class="step-number">100%</div>
+            <h3 class="text-white font-bold mb-2">Возврат суммы</h3>
+            <p class="text-slate-400 text-sm leading-relaxed">Полная стоимость подписки, без удержания комиссий.</p>
+          </div>
+        </div>
+
+        <div class="glass-panel rounded-2xl p-6 sm:p-8 mb-10 scroll-anim delay-100">
+          <h2 class="text-lg font-bold text-white mb-4 flex items-center gap-2">
+            <i data-lucide="list" class="w-5 h-5 text-brand-400"></i>
+            Содержание
+          </h2>
+          <div class="toc grid sm:grid-cols-2 gap-x-6 gap-y-1">
+            <a href="#section-1">1. Общие положения</a>
+            <a href="#section-2">2. Условия возврата</a>
+            <a href="#section-3">3. Сроки возврата</a>
+            <a href="#section-4">4. Порядок оформления возврата</a>
+            <a href="#section-5">5. Способы возврата средств</a>
+            <a href="#section-6">6. Случаи отказа в возврате</a>
+            <a href="#section-7">7. Возврат при технических проблемах</a>
+            <a href="#section-8">8. Возврат при блокировке</a>
+            <a href="#section-9">9. Частичный возврат</a>
+            <a href="#section-10">10. Спорные ситуации</a>
+            <a href="#section-11">11. Контактная информация</a>
+          </div>
+        </div>
+
+        <div class="policy-content glass-panel rounded-2xl p-6 sm:p-10 scroll-anim delay-200">
+
+          <section id="section-1">
+            <h2>1. Общие положения</h2>
+            <p>
+              1.1. Настоящая Гарантия возврата средств (далее — «Гарантия») определяет условия, порядок и сроки возврата денежных средств, уплаченных Пользователем за подписку на сервис YulNET (далее — «Сервис»).
+            </p>
+            <p>
+              1.2. Гарантия действует в отношении всех тарифных планов, представленных на Сайте, если иное прямо не указано в описании конкретного тарифа или акции.
+            </p>
+            <p>
+              1.3. Гарантия распространяется на первичные оплаты подписки, а также на автоматические продления, если Пользователь не успел отменить их до момента списания.
+            </p>
+            <p>
+              1.4. Настоящая Гарантия является публичным документом и размещена в открытом доступе по адресу <a href="https://yullk.store/refund">https://yullk.store/refund</a>.
+            </p>
+            <p>
+              1.5. При оформлении подписки Пользователь подтверждает, что ознакомился с условиями настоящей Гарантии и принимает их в полном объёме.
+            </p>
+            <div class="success-box">
+              <p><strong>Наш принцип:</strong> мы уверены в качестве нашего Сервиса и не хотим, чтобы кто-то платил за услугу, которой не пользуется или которая не оправдала ожиданий. Возврат — это нормальная часть работы.</p>
+            </div>
+          </section>
+
+          <section id="section-2">
+            <h2>2. Условия возврата</h2>
+            <p>
+              2.1. Возврат средств осуществляется при одновременном соблюдении следующих условий:
+            </p>
+            <ul>
+              <li>С момента оплаты подписки прошло <strong>не более 7 календарных дней</strong>.</li>
+              <li>Пользователь не нарушал условия <a href="/terms">Пользовательского соглашения</a>.</li>
+              <li>Сервис не использовался в противоправных целях.</li>
+              <li>Учётная запись Пользователя не была заблокирована за нарушение правил.</li>
+              <li>Обращение поступило через официальные каналы поддержки (Telegram-бот или служба поддержки).</li>
+            </ul>
+            <p>
+              2.2. При соблюдении всех условий возврат производится в полном объёме — без удержания комиссий, штрафов или платы за фактически использованные дни.
+            </p>
+            <p>
+              2.3. Причина возврата не имеет значения. Мы не требуем от Пользователя объяснений. Достаточно факта обращения в установленный срок.
+            </p>
+            <div class="highlight-box">
+              <p><strong>Обратите внимание:</strong> гарантия действует и в отношении автоматических продлений, если списание произошло недавно, а Пользователь не успел отменить подписку вовремя.</p>
+            </div>
+          </section>
+
+          <section id="section-3">
+            <h2>3. Сроки возврата</h2>
+            <p>
+              3.1. Обращение о возврате должно быть направлено в течение <strong>7 календарных дней</strong> с момента оплаты.
+            </p>
+            <p>
+              3.2. Отсчёт срока начинается со дня, следующего за днём оплаты. Если оплата произведена 1-го числа, срок возврата истекает 8-го числа включительно.
+            </p>
+            <p>
+              3.3. Обращения, поступившие после истечения 7-дневного срока, рассматриваются в индивидуальном порядке. Решение о возврате принимается Администрацией по своему усмотрению.
+            </p>
+            <p>
+              3.4. По истечении 30 календарных дней с момента оплаты возврат средств не производится.
+            </p>
+          </section>
+
+          <section id="section-4">
+            <h2>4. Порядок оформления возврата</h2>
+            <p>
+              4.1. Для оформления возврата средств необходимо выполнить следующие шаги:
+            </p>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 my-6">
+              <div class="step-card">
+                <div class="step-number">1</div>
+                <h3 class="text-white font-bold mb-2">Обратитесь в поддержку</h3>
+                <p class="text-slate-400 text-sm leading-relaxed">Напишите в Telegram-бот <a href="https://t.me/yulnetbot" target="_blank" class="text-brand-400 hover:underline">@yulnetbot</a> или службу поддержки <a href="https://t.me/yulnetsupport" target="_blank" class="text-brand-400 hover:underline">@yulnetsupport</a>.</p>
+              </div>
+              <div class="step-card">
+                <div class="step-number">2</div>
+                <h3 class="text-white font-bold mb-2">Укажите данные</h3>
+                <p class="text-slate-400 text-sm leading-relaxed">Сообщите ID подписки или Telegram-идентификатор, привязанный к аккаунту.</p>
+              </div>
+              <div class="step-card">
+                <div class="step-number">3</div>
+                <h3 class="text-white font-bold mb-2">Дождитесь ответа</h3>
+                <p class="text-slate-400 text-sm leading-relaxed">Мы обработаем заявку в течение 24 часов в рабочие дни.</p>
+              </div>
+              <div class="step-card">
+                <div class="step-number">4</div>
+                <h3 class="text-white font-bold mb-2">Получите возврат</h3>
+                <p class="text-slate-400 text-sm leading-relaxed">Средства поступят тем же способом, которым была произведена оплата.</p>
+              </div>
+            </div>
+
+            <p>
+              4.2. При обращении обязательно укажите:
+            </p>
+            <ul>
+              <li>Идентификатор подписки или Telegram-аккаунт, с которого оформлялась оплата.</li>
+              <li>Дату и сумму платежа.</li>
+              <li>Способ оплаты (карта, криптовалюта, Telegram Stars, СБП и т. д.).</li>
+              <li>Причину возврата (по желанию).</li>
+            </ul>
+            <p>
+              4.3. После рассмотрения заявки Администрация уведомляет Пользователя о принятом решении и, в случае положительного решения, инициирует возврат средств.
+            </p>
+            <p>
+              4.4. Учётная запись Пользователя и доступ к Сервису блокируются одновременно с инициированием возврата.
+            </p>
+          </section>
+
+          <section id="section-5">
+            <h2>5. Способы возврата средств</h2>
+            <p>
+              5.1. Возврат средств производится тем же способом, которым была произведена оплата:
+            </p>
+            <ul>
+              <li><strong>Банковская карта.</strong> Возврат на ту же карту, с которой была произведена оплата. Срок зачисления — от 3 до 30 рабочих дней в зависимости от банка-эмитента.</li>
+              <li><strong>СБП.</strong> Возврат на счёт по номеру телефона, с которого производилась оплата. Срок — до 5 рабочих дней.</li>
+              <li><strong>Криптовалюта.</strong> Возврат на тот же кошелёк, с которого поступали средства. Срок — до 24 часов с момента подтверждения транзакции. Комиссия сети не возвращается.</li>
+              <li><strong>Telegram Stars.</strong> Возврат в виде Stars на тот же аккаунт Telegram. Срок — до 24 часов.</li>
+              <li><strong>ЮMoney, QIWI и другие электронные кошельки.</strong> Возврат на тот же кошелёк. Срок — до 5 рабочих дней.</li>
+            </ul>
+            <p>
+              5.2. Возврат на другие реквизиты не производится, за исключением случаев, когда исходный способ оплаты недоступен (например, карта закрыта). В этом случае Пользователь должен предоставить альтернативные реквизиты и подтвердить личность.
+            </p>
+            <p>
+              5.3. Все комиссии платёжных систем, связанные с возвратом, берёт на себя Администрация. Пользователь получает полную сумму оплаты.
+            </p>
+          </section>
+
+          <section id="section-6">
+            <h2>6. Случаи отказа в возврате</h2>
+            <p>
+              6.1. Возврат средств не производится в следующих случаях:
+            </p>
+            <ul>
+              <li>С момента оплаты прошло более 30 календарных дней.</li>
+              <li>Учётная запись Пользователя была заблокирована за нарушение условий <a href="/terms">Пользовательского соглашения</a>.</li>
+              <li>Сервис использовался в противоправных целях: спам, мошенничество, распространение вредоносного ПО, сканирование портов, DDoS-атаки.</li>
+              <li>Пользователь публиковал в открытых источниках ключи доступа, конфигурационные файлы или ссылки на подключение, что привело к злоупотреблениям.</li>
+              <li>Обращение о возврате поступило повторно по той же подписке.</li>
+              <li>Подписка приобретена в рамках акции, условия которой прямо исключают возврат.</li>
+              <li>Оплата произведена третьим лицом без согласия Пользователя (в таких случаях необходимо обращаться к плательщику).</li>
+            </ul>
+            <div class="warning-box">
+              <p><strong>Внимание:</strong> Администрация оставляет за собой право отказать в возврате средств при наличии признаков мошеннических действий, злоупотребления гарантией или иных нарушений со стороны Пользователя.</p>
+            </div>
+          </section>
+
+          <section id="section-7">
+            <h2>7. Возврат при технических проблемах</h2>
+            <p>
+              7.1. Если Сервис не работает по техническим причинам на стороне Администрации, Пользователь имеет право на:
+            </p>
+            <ul>
+              <li>Продление подписки на срок, равный времени простоя.</li>
+              <li>Полный возврат средств за период, в течение которого Сервис был недоступен.</li>
+            </ul>
+            <p>
+              7.2. Техническими проблемами на стороне Администрации считаются:
+            </p>
+            <ul>
+              <li>Недоступность серверов YulNET более 24 часов подряд.</li>
+              <li>Отсутствие соединения по причинам, зависящим от инфраструктуры Сервиса.</li>
+              <li>Ошибки в работе клиентского программного обеспечения, препятствующие использованию Сервиса.</li>
+            </ul>
+            <p>
+              7.3. Техническими проблемами <strong>не считаются</strong>:
+            </p>
+            <ul>
+              <li>Проблемы на стороне интернет-провайдера Пользователя.</li>
+              <li>Блокировки со стороны государственных органов.</li>
+              <li>Несовместимость устройства Пользователя с клиентским ПО.</li>
+              <li>Ошибки, вызванные неправильной настройкой на стороне Пользователя.</li>
+            </ul>
+            <p>
+              7.4. Для подтверждения технической проблемы Администрация вправе запросить у Пользователя логи, скриншоты или иные доказательства.
+            </p>
+          </section>
+
+          <section id="section-8">
+            <h2>8. Возврат при блокировке</h2>
+            <p>
+              8.1. Если доступ к Сервису был заблокирован по требованию государственных органов или по причинам, не зависящим от Администрации, возврат средств производится в следующем порядке:
+            </p>
+            <ul>
+              <li>Если блокировка произошла в течение 7 дней с момента оплаты — возврат в полном объёме.</li>
+              <li>Если блокировка произошла после 7 дней — возврат пропорционально неиспользованному периоду подписки.</li>
+            </ul>
+            <p>
+              8.2. Администрация не несёт ответственности за блокировки, произошедшие по причинам, находящимся вне её контроля. Тем не менее, мы стараемся минимизировать последствия для Пользователей.
+            </p>
+            <p>
+              8.3. Для получения возврата при блокировке Пользователь должен обратиться в службу поддержки с описанием ситуации.
+            </p>
+          </section>
+
+          <section id="section-9">
+            <h2>9. Частичный возврат</h2>
+            <p>
+              9.1. В отдельных случаях возможен частичный возврат средств, если:
+            </p>
+            <ul>
+              <li>Пользователь использовал Сервис в течение нескольких дней, но столкнулся с проблемами, не подпадающими под полный возврат.</li>
+              <li>Подписка была оформлена на длительный срок, но Пользователь хочет отказаться от неё до истечения срока.</li>
+            </ul>
+            <p>
+              9.2. Частичный возврат рассчитывается пропорционально неиспользованному периоду подписки за вычетом стоимости фактически использованных дней.
+            </p>
+            <p>
+              9.3. Решение о частичном возврате принимается Администрацией индивидуально, с учётом обстоятельств обращения.
+            </p>
+          </section>
+
+          <section id="section-10">
+            <h2>10. Спорные ситуации</h2>
+            <p>
+              10.1. В случае возникновения спорных ситуаций, связанных с возвратом средств, Пользователь вправе:
+            </p>
+            <ul>
+              <li>Обратиться в службу поддержки для разъяснения ситуации.</li>
+              <li>Запросить пересмотр решения вышестоящим сотрудником Администрации.</li>
+              <li>Обратиться в надзорные органы в соответствии с законодательством Российской Федерации.</li>
+            </ul>
+            <p>
+              10.2. Администрация обязуется рассматривать все спорные ситуации в максимально короткие сроки и принимать решения, руководствуясь принципами справедливости и добросовестности.
+            </p>
+            <p>
+              10.3. Срок рассмотрения спорных ситуаций — до 30 календарных дней с момента получения обращения.
+            </p>
+          </section>
+
+          <section id="section-11">
+            <h2>11. Контактная информация</h2>
+            <p>
+              11.1. По всем вопросам, связанным с возвратом средств, вы можете связаться с нами:
+            </p>
+            <ul>
+              <li><strong>Telegram-бот:</strong> <a href="https://t.me/yulnetbot" target="_blank">@yulnetbot</a></li>
+              <li><strong>Telegram-канал:</strong> <a href="https://t.me/yulnetblog" target="_blank">@yulnetblog</a></li>
+              <li><strong>Служба поддержки:</strong> <a href="https://t.me/yulnetsupport" target="_blank">@yulnetsupport</a></li>
+            </ul>
+            <p>
+              11.2. Мы стараемся отвечать на все обращения в течение 24 часов в рабочие дни.
+            </p>
+            <p>
+              11.3. Настоящая Гарантия возврата средств является общедоступным документом и размещена по адресу <a href="https://yullk.store/refund">https://yullk.store/refund</a>.
+            </p>
+          </section>
+
+          <div class="mt-12 pt-8 border-t border-slate-800/60 text-center">
+            <p class="text-xs text-slate-500 font-mono">
+              YulNET · Гарантия возврата средств · Версия 1.0 · 2 октября 2026 г.
+            </p>
+          </div>
+
+        </div>
+
+        <div class="text-center mt-10 scroll-anim">
+          <a href="/" class="inline-flex items-center gap-2 px-8 py-4 rounded-xl bg-gradient-to-r from-brand-500 to-brand-600 hover:from-brand-600 hover:to-brand-700 text-white font-bold shadow-neon hover:shadow-neon-lg transition-all duration-300 transform hover:-translate-y-1 group">
+            <i data-lucide="home" class="w-5 h-5"></i>
+            Вернуться на главную
+            <i data-lucide="arrow-right" class="w-5 h-5 group-hover:translate-x-1 transition-transform"></i>
+          </a>
+        </div>
+
+      </div>
+
+    </div>
+  </main>
+
+  <footer class="border-t border-slate-800/80 bg-dark-950 pt-16 pb-12 relative z-10">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 md:grid-cols-12 gap-10 pb-12 border-b border-slate-800">
+
+        <div class="md:col-span-5 space-y-4">
+          <div class="flex items-center gap-3">
+            <span class="text-3xl font-extrabold tracking-tight poly-gradient-text">YulNET</span>
+          </div>
+          <p class="text-sm text-slate-400 max-w-sm">
+            Сетевая инфраструктура безопасности. Высокий уровень шифрования, защита сетевых соединений и непрерывная скорость.
+          </p>
+        </div>
+
+        <div class="md:col-span-4">
+          <h4 class="text-white font-bold text-sm mb-4 uppercase tracking-wider font-mono">Мы в сети</h4>
+          <div class="flex flex-col gap-3">
+            <a href="https://t.me/yulnetblog" target="_blank" rel="noopener noreferrer" class="flex items-center gap-3 text-sm text-slate-400 hover:text-brand-400 transition-colors group">
+              <div class="w-8 h-8 rounded-lg bg-dark-800 border border-slate-700 group-hover:border-brand-500 flex items-center justify-center text-slate-300 group-hover:text-brand-400 transition-colors">
+                <i data-lucide="send" class="w-4 h-4"></i>
+              </div>
+              <span>Telegram-канал</span>
+            </a>
+            <a href="https://t.me/yulnetbot" target="_blank" rel="noopener noreferrer" class="flex items-center gap-3 text-sm text-slate-400 hover:text-brand-400 transition-colors group">
+              <div class="w-8 h-8 rounded-lg bg-dark-800 border border-slate-700 group-hover:border-brand-500 flex items-center justify-center text-slate-300 group-hover:text-brand-400 transition-colors">
+                <i data-lucide="bot" class="w-4 h-4"></i>
+              </div>
+              <span>Telegram-бот</span>
+            </a>
+            <a href="https://t.me/yulnetsupport" target="_blank" rel="noopener noreferrer" class="flex items-center gap-3 text-sm text-slate-400 hover:text-brand-400 transition-colors group">
+              <div class="w-8 h-8 rounded-lg bg-dark-800 border border-slate-700 group-hover:border-brand-500 flex items-center justify-center text-slate-300 group-hover:text-brand-400 transition-colors">
+                <i data-lucide="headset" class="w-4 h-4"></i>
+              </div>
+              <span>Служба поддержки</span>
+            </a>
+          </div>
+        </div>
+
+        <div class="md:col-span-3">
+          <h4 class="text-white font-bold text-sm mb-4 uppercase tracking-wider font-mono">Правовая информация</h4>
+          <ul class="space-y-3 text-sm text-slate-400">
+            <li>
+              <a href="/privacy" class="flex items-center gap-2 hover:text-white transition-colors group">
+                <i data-lucide="shield-check" class="w-4 h-4 text-slate-500 group-hover:text-brand-400 transition-colors"></i>
+                <span>Политика конфиденциальности</span>
+              </a>
+            </li>
+            <li>
+              <a href="/terms" class="flex items-center gap-2 hover:text-white transition-colors group">
+                <i data-lucide="file-text" class="w-4 h-4 text-slate-500 group-hover:text-brand-400 transition-colors"></i>
+                <span>Пользовательское соглашение</span>
+              </a>
+            </li>
+            <li>
+              <a href="/refund" class="flex items-center gap-2 hover:text-white transition-colors group">
+                <i data-lucide="rotate-ccw" class="w-4 h-4 text-slate-500 group-hover:text-brand-400 transition-colors"></i>
+                <span>Гарантия возврата</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="pt-8 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-500 gap-4">
+        <p>© 2026 YulNET. Все права защищены.</p>
+        <p class="font-mono text-slate-600">yulnet v1 · build 2026.10.02</p>
+      </div>
+    </div>
+  </footer>
+
+  <button id="backToTop" aria-label="Наверх" class="fixed bottom-6 right-6 w-12 h-12 rounded-full bg-brand-500 hover:bg-brand-600 text-white shadow-neon items-center justify-center z-50 flex">
+    <i data-lucide="arrow-up" class="w-5 h-5"></i>
+  </button>
+
+  <script>
+    lucide.createIcons();
+
+    const scrollProgress = document.getElementById('scrollProgress');
+    const backToTop = document.getElementById('backToTop');
+    window.addEventListener('scroll', () => {
+      const h = document.documentElement.scrollHeight - window.innerHeight;
+      scrollProgress.style.width = (window.scrollY / h) * 100 + '%';
+      backToTop.classList.toggle('visible', window.scrollY > 500);
+    });
+    backToTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+
+    const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+    const mobileMenu = document.getElementById('mobileMenu');
+    const menuIconWrapper = document.getElementById('menuIconWrapper');
+    const mobileLinks = document.querySelectorAll('.mobile-link');
+
+    function setMenuIcon(name) {
+      menuIconWrapper.innerHTML = `<i data-lucide="${name}" class="w-6 h-6"></i>`;
+      lucide.createIcons();
+    }
+
+    if (mobileMenuBtn && mobileMenu) {
+      mobileMenuBtn.addEventListener('click', () => {
+        const isOpen = mobileMenu.classList.contains('open');
+        mobileMenu.classList.toggle('open');
+        setMenuIcon(isOpen ? 'menu' : 'x');
+      });
+
+      mobileLinks.forEach(link => {
+        link.addEventListener('click', () => {
+          mobileMenu.classList.remove('open');
+          setMenuIcon('menu');
+        });
+      });
+    }
+
+    const observer = new IntersectionObserver((entries, obs) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          obs.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15, rootMargin: '0px 0px -60px 0px' });
+
+    document.querySelectorAll('.scroll-anim').forEach(el => observer.observe(el));
+
+    document.querySelectorAll('a[href^="#"]').forEach(a => {
+      a.addEventListener('click', e => {
+        const href = a.getAttribute('href');
+        if (href === '#') return;
+        const target = document.querySelector(href);
+        if (target) {
+          e.preventDefault();
+          window.scrollTo({ top: target.offsetTop - 100, behavior: 'smooth' });
+        }
+      });
+    });
+  </script>
+</body>
+</html>

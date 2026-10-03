@@ -1,0 +1,766 @@
+<!DOCTYPE html>
+<html lang="ru" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Пользовательское соглашение | YulNET</title>
+  <link rel="icon" type="image/png" href="/favicon.png">
+  <link rel="apple-touch-icon" href="/favicon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              400: '#5374ff',
+              500: '#2b4cff',
+              600: '#1a2fff',
+              700: '#0c1ad6',
+              800: '#0a12a8',
+              900: '#060d3d',
+              glow: '#4361ee'
+            },
+            dark: {
+              950: '#030712',
+              900: '#080c1e',
+              850: '#0d132b',
+              800: '#121a3a'
+            }
+          },
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'system-ui', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'monospace']
+          },
+          boxShadow: {
+            'neon': '0 0 30px -5px rgba(43, 76, 255, 0.55)',
+            'neon-lg': '0 0 60px -10px rgba(43, 76, 255, 0.8)',
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body {
+      background-color: #030712;
+      color: #f1f5f9;
+      overflow-x: hidden;
+    }
+
+    .glass-panel {
+      background: rgba(13, 19, 43, 0.45);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid rgba(67, 97, 238, 0.15);
+      transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .poly-gradient-text {
+      background: linear-gradient(135deg, #ffffff 30%, #9cb3ff 70%, #2b4cff 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .scroll-anim {
+      opacity: 1;
+      transform: translateY(0);
+      transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .scroll-anim.visible { opacity: 1; transform: translateY(0); }
+    .delay-100 { transition-delay: 100ms; }
+    .delay-200 { transition-delay: 200ms; }
+    .delay-300 { transition-delay: 300ms; }
+    .delay-400 { transition-delay: 400ms; }
+
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: #030712; }
+    ::-webkit-scrollbar-thumb { background: #1d2753; border-radius: 4px; }
+    ::-webkit-scrollbar-thumb:hover { background: #2b4cff; }
+
+    #mobileMenu {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s ease-out;
+    }
+    #mobileMenu.open { max-height: 500px; }
+
+    #scrollProgress {
+      position: fixed;
+      top: 0; left: 0;
+      height: 2px;
+      background: linear-gradient(90deg, #2b4cff, #5374ff);
+      box-shadow: 0 0 12px #2b4cff;
+      z-index: 100;
+      width: 0;
+      transition: width 0.1s linear;
+    }
+
+    #backToTop {
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s, transform 0.3s;
+      transform: translateY(20px);
+    }
+    #backToTop.visible {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateY(0);
+    }
+
+    .policy-content h2 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #ffffff;
+      margin-top: 2.5rem;
+      margin-bottom: 1rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid rgba(67, 97, 238, 0.2);
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .policy-content h2::before {
+      content: '§';
+      color: #5374ff;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 1.25rem;
+    }
+
+    .policy-content h3 {
+      font-size: 1.125rem;
+      font-weight: 600;
+      color: #9cb3ff;
+      margin-top: 1.75rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .policy-content p {
+      color: #94a3b8;
+      font-size: 0.9375rem;
+      line-height: 1.8;
+      margin-bottom: 1rem;
+    }
+
+    .policy-content ul, .policy-content ol {
+      color: #94a3b8;
+      font-size: 0.9375rem;
+      line-height: 1.8;
+      margin-bottom: 1rem;
+      padding-left: 1.5rem;
+    }
+
+    .policy-content li {
+      margin-bottom: 0.5rem;
+    }
+
+    .policy-content strong {
+      color: #e2e8f0;
+      font-weight: 600;
+    }
+
+    .policy-content a {
+      color: #5374ff;
+      text-decoration: underline;
+      text-underline-offset: 2px;
+      transition: color 0.2s;
+    }
+
+    .policy-content a:hover {
+      color: #9cb3ff;
+    }
+
+    .policy-content .highlight-box {
+      background: rgba(43, 76, 255, 0.08);
+      border-left: 3px solid #2b4cff;
+      padding: 1rem 1.25rem;
+      border-radius: 0 0.5rem 0.5rem 0;
+      margin: 1.5rem 0;
+    }
+
+    .policy-content .highlight-box p {
+      margin-bottom: 0;
+      color: #cbd5e1;
+    }
+
+    .policy-content .warning-box {
+      background: rgba(239, 68, 68, 0.08);
+      border-left: 3px solid #ef4444;
+      padding: 1rem 1.25rem;
+      border-radius: 0 0.5rem 0.5rem 0;
+      margin: 1.5rem 0;
+    }
+
+    .policy-content .warning-box p {
+      margin-bottom: 0;
+      color: #fca5a5;
+    }
+
+    .toc a {
+      color: #94a3b8;
+      text-decoration: none;
+      font-size: 0.875rem;
+      display: block;
+      padding: 0.375rem 0;
+      border-left: 2px solid transparent;
+      padding-left: 0.75rem;
+      transition: all 0.2s;
+    }
+
+    .toc a:hover {
+      color: #ffffff;
+      border-left-color: #2b4cff;
+      background: rgba(43, 76, 255, 0.05);
+    }
+
+    .last-updated {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.5rem 1rem;
+      background: rgba(43, 76, 255, 0.1);
+      border: 1px solid rgba(67, 97, 238, 0.2);
+      border-radius: 100px;
+      font-size: 0.75rem;
+      color: #9cb3ff;
+      font-family: 'JetBrains Mono', monospace;
+    }
+  </style>
+</head>
+<body class="antialiased selection:bg-brand-500 selection:text-white">
+
+  <div id="scrollProgress"></div>
+
+  <div class="fixed -top-40 -left-40 w-[600px] h-[600px] bg-brand-600/20 rounded-full blur-[150px] pointer-events-none z-0"></div>
+  <div class="fixed bottom-0 right-0 w-[700px] h-[700px] bg-brand-500/10 rounded-full blur-[180px] pointer-events-none z-0"></div>
+
+  <header class="fixed top-0 z-50 w-full backdrop-blur-xl bg-dark-950/80 border-b border-brand-500/10">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+      <a href="/" class="flex items-center group">
+        <span class="text-2xl font-extrabold tracking-tight poly-gradient-text transition-transform duration-300 group-hover:scale-105">YulNET</span>
+      </a>
+
+      <div class="flex items-center gap-8">
+        <nav class="hidden md:flex items-center gap-8 text-sm font-medium text-slate-300">
+          <a href="/#features" class="hover:text-white transition-colors duration-200">Преимущества</a>
+          <a href="/#servers" class="hover:text-white transition-colors duration-200">Сервера</a>
+          <a href="/#pricing" class="hover:text-white transition-colors duration-200">Цены</a>
+          <a href="/#faq" class="hover:text-white transition-colors duration-200">FAQ</a>
+        </nav>
+
+        <a href="https://lk.yullk.store" class="hidden sm:inline-flex px-5 py-2.5 rounded-lg bg-brand-500 hover:bg-brand-600 text-white font-semibold text-sm shadow-neon transition-all duration-300 transform hover:-translate-y-0.5">
+          Личный кабинет
+        </a>
+
+        <button id="mobileMenuBtn" aria-label="Открыть меню" class="md:hidden text-slate-300 hover:text-white p-2 rounded-lg hover:bg-dark-800/80 transition-colors focus:outline-none">
+          <span id="menuIconWrapper">
+            <i data-lucide="menu" class="w-6 h-6"></i>
+          </span>
+        </button>
+      </div>
+    </div>
+
+    <div id="mobileMenu" class="md:hidden border-b border-brand-500/10 bg-dark-950/95 backdrop-blur-2xl px-6">
+      <nav class="flex flex-col gap-2 text-base font-medium text-slate-300 py-4">
+        <a href="/#features" class="mobile-link hover:text-white transition-colors py-3 border-b border-slate-800/60">Преимущества</a>
+        <a href="/#servers" class="mobile-link hover:text-white transition-colors py-3 border-b border-slate-800/60">Сервера</a>
+        <a href="/#pricing" class="mobile-link hover:text-white transition-colors py-3 border-b border-slate-800/60">Цены</a>
+        <a href="/#faq" class="mobile-link hover:text-white transition-colors py-3 border-b border-slate-800/60">FAQ</a>
+        <a href="https://t.me/yulnet_bot" class="mobile-link w-full text-center mt-4 px-5 py-3 rounded-xl bg-brand-500 hover:bg-brand-600 text-white font-semibold text-sm shadow-neon transition-all">
+          Личный кабинет
+        </a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="pt-32 pb-24 relative z-10">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+      <div class="max-w-4xl mx-auto">
+        <div class="scroll-anim mb-8">
+          <a href="/" class="inline-flex items-center gap-2 text-sm text-slate-400 hover:text-brand-400 transition-colors mb-6 group">
+            <i data-lucide="arrow-left" class="w-4 h-4 group-hover:-translate-x-1 transition-transform"></i>
+            На главную
+          </a>
+          <div class="last-updated mb-6">
+            <i data-lucide="calendar" class="w-3.5 h-3.5"></i>
+            Последнее обновление: 2 октября 2026 г.
+          </div>
+          <h1 class="text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight leading-[1.1] mb-6">
+            Пользовательское <span class="poly-gradient-text">соглашение</span>
+          </h1>
+          <p class="text-lg text-slate-400 max-w-3xl leading-relaxed">
+            Настоящее Пользовательское соглашение (далее — «Соглашение») определяет условия использования сервиса YulNET («Сервис»), предоставляемого Администрацией YulNET («мы», «нас», «наш»), и регулирует отношения между Администрацией и пользователем («вы», «ваш», «Пользователь»). Используя Сервис, вы подтверждаете, что ознакомились с условиями настоящего Соглашения и принимаете их в полном объёме.
+          </p>
+        </div>
+
+        <div class="glass-panel rounded-2xl p-6 sm:p-8 mb-10 scroll-anim delay-100">
+          <h2 class="text-lg font-bold text-white mb-4 flex items-center gap-2">
+            <i data-lucide="list" class="w-5 h-5 text-brand-400"></i>
+            Содержание
+          </h2>
+          <div class="toc grid sm:grid-cols-2 gap-x-6 gap-y-1">
+            <a href="#section-1">1. Термины и определения</a>
+            <a href="#section-2">2. Предмет соглашения</a>
+            <a href="#section-3">3. Регистрация и учётная запись</a>
+            <a href="#section-4">4. Порядок оказания услуг</a>
+            <a href="#section-5">5. Права и обязанности сторон</a>
+            <a href="#section-6">6. Допустимое использование</a>
+            <a href="#section-7">7. Оплата и подписка</a>
+            <a href="#section-8">8. Возврат средств</a>
+            <a href="#section-9">9. Интеллектуальная собственность</a>
+            <a href="#section-10">10. Ограничение ответственности</a>
+            <a href="#section-11">11. Отказ от гарантий</a>
+            <a href="#section-12">12. Приостановление и расторжение</a>
+            <a href="#section-13">13. Разрешение споров</a>
+            <a href="#section-14">14. Изменения Соглашения</a>
+            <a href="#section-15">15. Контактная информация</a>
+          </div>
+        </div>
+
+        <div class="policy-content glass-panel rounded-2xl p-6 sm:p-10 scroll-anim delay-200">
+
+          <section id="section-1">
+            <h2>1. Термины и определения</h2>
+            <p>
+              1.1. В настоящем Соглашении используются следующие основные термины:
+            </p>
+            <ul>
+              <li><strong>«Сервис»</strong> — программно-аппаратный комплекс YulNET, включая веб-сайт, мобильные приложения, программное обеспечение, серверную инфраструктуру, а также связанные с ними услуги по обеспечению защищённого сетевого соединения.</li>
+              <li><strong>«Администрация»</strong> — владелец и оператор Сервиса YulNET, осуществляющий его техническую поддержку и развитие.</li>
+              <li><strong>«Пользователь»</strong> — физическое лицо, использующее Сервис на условиях настоящего Соглашения.</li>
+              <li><strong>«Подписка»</strong> — право Пользователя на использование Сервиса в течение определённого периода времени, оплаченного в соответствии с выбранным тарифом.</li>
+              <li><strong>«Учётная запись»</strong> — совокупность данных Пользователя, идентифицирующая его в Сервисе.</li>
+              <li><strong>«Контент»</strong> — любые материалы, размещённые на Сайте, включая тексты, изображения, программный код.</li>
+            </ul>
+            <p>
+              1.2. Термины, не определённые в настоящем разделе, используются в значении, установленном законодательством Российской Федерации и обычаями делового оборота.
+            </p>
+          </section>
+
+          <section id="section-2">
+            <h2>2. Предмет соглашения</h2>
+            <p>
+              2.1. Администрация предоставляет Пользователю неисключительное, непередаваемое право использования Сервиса в объёме, предусмотренном выбранным тарифным планом.
+            </p>
+            <p>
+              2.2. Услуга заключается в предоставлении доступа к серверной инфраструктуре YulNET для маршрутизации сетевого трафика Пользователя через зашифрованные каналы передачи данных.
+            </p>
+            <p>
+              2.3. Сервис предоставляется на условиях «как есть» (as is). Администрация не гарантирует соответствие Сервиса конкретным целям и ожиданиям Пользователя.
+            </p>
+            <div class="highlight-box">
+              <p><strong>Важно:</strong> Сервис предназначен для обеспечения конфиденциальности и безопасности сетевых соединений. Пользователь самостоятельно несёт ответственность за соблюдение законодательства своей юрисдикции при использовании Сервиса.</p>
+            </div>
+          </section>
+
+          <section id="section-3">
+            <h2>3. Регистрация и учётная запись</h2>
+            <p>
+              3.1. Для использования Сервиса Пользователь проходит регистрацию через Telegram-бота YulNET. При регистрации Пользователь предоставляет идентификатор Telegram.
+            </p>
+            <p>
+              3.2. Создавая учётную запись, Пользователь подтверждает, что:
+            </p>
+            <ul>
+              <li>Достиг возраста 18 лет или достиг совершеннолетия в своей юрисдикции.</li>
+              <li>Обладает полной дееспособностью для заключения настоящего Соглашения.</li>
+              <li>Предоставляет достоверную информацию о себе.</li>
+              <li>Не будет использовать Сервис в целях, противоречащих законодательству.</li>
+            </ul>
+            <p>
+              3.3. Пользователь несёт ответственность за сохранность данных своей учётной записи. Администрация не несёт ответственности за несанкционированный доступ к учётной записи, произошедший по вине Пользователя.
+            </p>
+            <p>
+              3.4. Учётная запись предназначена для индивидуального использования. Передача доступа третьим лицам, публикация конфигурационных данных в открытом доступе запрещены.
+            </p>
+            <div class="warning-box">
+              <p><strong>Внимание:</strong> Публикация ключей доступа, конфигурационных файлов или ссылок на подключение в открытых источниках является нарушением настоящего Соглашения и влечёт немедленную блокировку учётной записи без возврата средств.</p>
+            </div>
+          </section>
+
+          <section id="section-4">
+            <h2>4. Порядок оказания услуг</h2>
+            <p>
+              4.1. Услуги оказываются на основании оплаченной Подписки. Подписка активируется автоматически после подтверждения оплаты.
+            </p>
+            <p>
+              4.2. Администрация обеспечивает доступность Сервиса 24 часа в сутки, 7 дней в неделю, за исключением периодов проведения плановых технических работ, о которых Пользователи уведомляются заранее.
+            </p>
+            <p>
+              4.3. Услуга считается оказанной в полном объёме в момент предоставления Пользователю доступа к функционалу Сервиса (генерация конфигурации, выдача доступа к серверам), независимо от того, воспользовался ли Пользователь услугой на своём устройстве.
+            </p>
+            <p>
+              4.4. Администрация вправе приостановить оказание услуг для проведения неотложных технических работ без предварительного уведомления, если промедление может привести к нарушению безопасности или работоспособности Сервиса.
+            </p>
+          </section>
+
+          <section id="section-5">
+            <h2>5. Права и обязанности сторон</h2>
+            <p>
+              5.1. <strong>Администрация обязуется:</strong>
+            </p>
+            <ul>
+              <li>Обеспечивать функционирование Сервиса в соответствии с условиями настоящего Соглашения.</li>
+              <li>Предоставлять Пользователю доступ к оплаченным услугам.</li>
+              <li>Обеспечивать конфиденциальность персональных данных в соответствии с Политикой конфиденциальности.</li>
+              <li>Уведомлять Пользователя о существенных изменениях в работе Сервиса.</li>
+              <li>Оказывать техническую поддержку в разумные сроки.</li>
+            </ul>
+            <p>
+              5.2. <strong>Администрация имеет право:</strong>
+            </p>
+            <ul>
+              <li>Изменять тарифные планы, функциональность и условия предоставления Сервиса с уведомлением Пользователей.</li>
+              <li>Приостановить или прекратить доступ Пользователя к Сервису при нарушении условий настоящего Соглашения.</li>
+              <li>Ограничивать доступ к Сервису при технической необходимости или по требованию уполномоченных государственных органов.</li>
+            </ul>
+            <p>
+              5.3. <strong>Пользователь обязуется:</strong>
+            </p>
+            <ul>
+              <li>Соблюдать условия настоящего Соглашения и законодательство своей юрисдикции.</li>
+              <li>Не использовать Сервис для противоправных действий.</li>
+              <li>Не передавать доступ к учётной записи третьим лицам.</li>
+              <li>Своевременно оплачивать Подписку.</li>
+              <li>Не предпринимать попыток взлома, декомпиляции или иного вмешательства в работу Сервиса.</li>
+            </ul>
+            <p>
+              5.4. <strong>Пользователь имеет право:</strong>
+            </p>
+            <ul>
+              <li>Использовать Сервис в соответствии с оплаченным тарифом.</li>
+              <li>Получать техническую поддержку.</li>
+              <li>Отказаться от использования Сервиса в любой момент.</li>
+              <li>Запрашивать информацию о своих персональных данных в соответствии с Политикой конфиденциальности.</li>
+            </ul>
+          </section>
+
+          <section id="section-6">
+            <h2>6. Допустимое использование</h2>
+            <p>
+              6.1. Пользователь обязуется НЕ использовать Сервис для:
+            </p>
+            <ul>
+              <li>Осуществления любых противоправных действий, включая распространение вредоносного программного обеспечения, спама, мошенничества.</li>
+              <li>Нарушения прав интеллектуальной собственности третьих лиц.</li>
+              <li>Несанкционированного доступа к компьютерным системам и сетям.</li>
+              <li>Распространения материалов, содержащих детскую эксплуатацию (нулевая толерантность).</li>
+              <li>Преследования, угроз, оскорблений в адрес других лиц.</li>
+              <li>Осуществления DDoS-атак, сканирования портов, взлома паролей.</li>
+              <li>Использования Сервиса в целях, связанных с терроризмом, экстремизмом или иной запрещённой деятельностью.</li>
+              <li>Массовой рассылки нежелательных сообщений.</li>
+              <li>Использования Сервиса способами, создающими чрезмерную нагрузку на инфраструктуру.</li>
+            </ul>
+            <p>
+              6.2. Администрация оставляет за собой право блокировать учётную запись Пользователя при выявлении нарушений без предварительного уведомления и без возврата средств.
+            </p>
+          </section>
+
+          <section id="section-7">
+            <h2>7. Оплата и подписка</h2>
+            <p>
+              7.1. Стоимость услуг определяется действующими тарифами, опубликованными на Сайте.
+            </p>
+            <p>
+              7.2. Оплата производится на условиях предоплаты. Доступ к Сервису предоставляется после подтверждения оплаты.
+            </p>
+            <p>
+              7.3. Администрация вправе изменять стоимость услуг с уведомлением Пользователей не менее чем за 14 календарных дней до вступления изменений в силу.
+            </p>
+            <p>
+              7.4. Подписка продлевается автоматически, если Пользователь не отменил её до окончания текущего периода.
+            </p>
+            <p>
+              7.5. Все расчёты производятся в рублях Российской Федерации, если иное не указано на Сайте.
+            </p>
+          </section>
+
+          <section id="section-8">
+            <h2>8. Возврат средств</h2>
+            <p>
+              8.1. Возврат средств осуществляется в соответствии с условиями, опубликованными на странице <a href="/refund">«Гарантия возврата средств»</a>.
+            </p>
+            <p>
+              8.2. Для получения возврата Пользователь обязан обратиться в службу поддержки в течение установленного срока с момента оплаты.
+            </p>
+            <p>
+              8.3. Возврат не производится в случаях, предусмотренных условиями гарантии возврата, включая, но не ограничиваясь:
+            </p>
+            <ul>
+              <li>Нарушение условий настоящего Соглашения.</li>
+              <li>Использование Сервиса в противоправных целях.</li>
+              <li>Блокировка доступа по требованию государственных органов.</li>
+            </ul>
+          </section>
+
+          <section id="section-9">
+            <h2>9. Интеллектуальная собственность</h2>
+            <p>
+              9.1. Все права на Сервис, включая программное обеспечение, дизайн, тексты, изображения, логотипы и иные материалы, принадлежат Администрации или её лицензиарам.
+            </p>
+            <p>
+              9.2. Пользователь не вправе копировать, модифицировать, распространять, декомпилировать или иным образом использовать материалы Сервиса без письменного разрешения Администрации.
+            </p>
+            <p>
+              9.3. Настоящее Соглашение не предоставляет Пользователю каких-либо прав на интеллектуальную собственность Администрации.
+            </p>
+          </section>
+
+          <section id="section-10">
+            <h2>10. Ограничение ответственности</h2>
+            <p>
+              10.1. В максимальной степени, допускаемой применимым законодательством, Администрация не несёт ответственности за:
+            </p>
+            <ul>
+              <li>Любые косвенные, случайные, специальные или штрафные убытки.</li>
+              <li>Потерю прибыли, данных или деловой репутации.</li>
+              <li>Действия или бездействие третьих лиц, включая интернет-провайдеров и государственные органы.</li>
+              <li>Невозможность использования Сервиса по причинам, не зависящим от Администрации.</li>
+              <li>Последствия использования Пользователем Сервиса в нарушение законодательства.</li>
+            </ul>
+            <p>
+              10.2. Совокупная ответственность Администрации по настоящему Соглашению ограничена суммой, фактически уплаченной Пользователем за последний оплаченный период подписки.
+            </p>
+          </section>
+
+          <section id="section-11">
+            <h2>11. Отказ от гарантий</h2>
+            <p>
+              11.1. Сервис предоставляется на условиях «как есть» и «как доступно». Администрация не предоставляет гарантий, явных или подразумеваемых, включая гарантии товарной пригодности, соответствия конкретным целям и ненарушения прав третьих лиц.
+            </p>
+            <p>
+              11.2. Администрация не гарантирует, что Сервис будет работать бесперебойно, без ошибок или что все ошибки будут исправлены.
+            </p>
+            <p>
+              11.3. Администрация не гарантирует доступность конкретных серверов, скорость соединения или возможность доступа к определённым ресурсам сети Интернет.
+            </p>
+          </section>
+
+          <section id="section-12">
+            <h2>12. Приостановление и расторжение</h2>
+            <p>
+              12.1. Администрация вправе приостановить или прекратить доступ Пользователя к Сервису:
+            </p>
+            <ul>
+              <li>При нарушении Пользователем условий настоящего Соглашения.</li>
+              <li>При выявлении мошеннических действий.</li>
+              <li>По требованию уполномоченных государственных органов.</li>
+              <li>При технической необходимости.</li>
+            </ul>
+            <p>
+              12.2. Пользователь вправе отказаться от использования Сервиса в любой момент, уведомив Администрацию через службу поддержки.
+            </p>
+            <p>
+              12.3. При расторжении Соглашения по инициативе Администрации по причинам, не связанным с нарушением Пользователем, неиспользованная часть Подписки может быть возвращена в соответствии с условиями гарантии возврата.
+            </p>
+          </section>
+
+          <section id="section-13">
+            <h2>13. Разрешение споров</h2>
+            <p>
+              13.1. Все споры и разногласия, возникающие в связи с исполнением настоящего Соглашения, разрешаются путём переговоров.
+            </p>
+            <p>
+              13.2. При невозможности разрешения спора путём переговоров он подлежит рассмотрению в соответствии с законодательством Российской Федерации.
+            </p>
+            <p>
+              13.3. Претензионный порядок разрешения споров является обязательным. Срок ответа на претензию — 30 календарных дней с момента её получения.
+            </p>
+          </section>
+
+          <section id="section-14">
+            <h2>14. Изменения Соглашения</h2>
+            <p>
+              14.1. Администрация оставляет за собой право вносить изменения в настоящее Соглашение.
+            </p>
+            <p>
+              14.2. При внесении существенных изменений Администрация уведомляет Пользователей через Сайт, Telegram-бота или по электронной почте не менее чем за 7 календарных дней до вступления изменений в силу.
+            </p>
+            <p>
+              14.3. Продолжение использования Сервиса после вступления изменений в силу означает согласие Пользователя с новой редакцией Соглашения.
+            </p>
+            <p>
+              14.4. Актуальная версия Соглашения всегда доступна по адресу <a href="https://yullk.store/terms">https://yullk.store/terms</a>.
+            </p>
+          </section>
+
+          <section id="section-15">
+            <h2>15. Контактная информация</h2>
+            <p>
+              15.1. По всем вопросам, связанным с настоящим Соглашением, вы можете связаться с нами:
+            </p>
+            <ul>
+              <li><strong>Telegram-бот:</strong> <a href="https://t.me/yulnetbot" target="_blank">@yulnetbot</a></li>
+              <li><strong>Telegram-канал:</strong> <a href="https://t.me/yulnetblog" target="_blank">@yulnetblog</a></li>
+              <li><strong>Служба поддержки:</strong> <a href="https://t.me/yulnetsupport" target="_blank">@yulnetsupport</a></li>
+            </ul>
+            <p>
+              15.2. Мы стараемся отвечать на все обращения в течение 24 часов в рабочие дни.
+            </p>
+            <p>
+              15.3. Настоящее Пользовательское соглашение является общедоступным документом и размещено по адресу <a href="https://yullk.store/terms">https://yullk.store/terms</a>.
+            </p>
+          </section>
+
+          <div class="mt-12 pt-8 border-t border-slate-800/60 text-center">
+            <p class="text-xs text-slate-500 font-mono">
+              YulNET · Пользовательское соглашение · Версия 1.0 · 2 октября 2026 г.
+            </p>
+          </div>
+
+        </div>
+
+        <div class="text-center mt-10 scroll-anim">
+          <a href="/" class="inline-flex items-center gap-2 px-8 py-4 rounded-xl bg-gradient-to-r from-brand-500 to-brand-600 hover:from-brand-600 hover:to-brand-700 text-white font-bold shadow-neon hover:shadow-neon-lg transition-all duration-300 transform hover:-translate-y-1 group">
+            <i data-lucide="home" class="w-5 h-5"></i>
+            Вернуться на главную
+            <i data-lucide="arrow-right" class="w-5 h-5 group-hover:translate-x-1 transition-transform"></i>
+          </a>
+        </div>
+
+      </div>
+
+    </div>
+  </main>
+
+  <footer class="border-t border-slate-800/80 bg-dark-950 pt-16 pb-12 relative z-10">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 md:grid-cols-12 gap-10 pb-12 border-b border-slate-800">
+
+        <div class="md:col-span-5 space-y-4">
+          <div class="flex items-center gap-3">
+            <span class="text-3xl font-extrabold tracking-tight poly-gradient-text">YulNET</span>
+          </div>
+          <p class="text-sm text-slate-400 max-w-sm">
+            Сетевая инфраструктура безопасности. Высокий уровень шифрования, защита сетевых соединений и непрерывная скорость.
+          </p>
+        </div>
+
+        <div class="md:col-span-4">
+          <h4 class="text-white font-bold text-sm mb-4 uppercase tracking-wider font-mono">Мы в сети</h4>
+          <div class="flex flex-col gap-3">
+            <a href="https://t.me/yulnetblog" target="_blank" rel="noopener noreferrer" class="flex items-center gap-3 text-sm text-slate-400 hover:text-brand-400 transition-colors group">
+              <div class="w-8 h-8 rounded-lg bg-dark-800 border border-slate-700 group-hover:border-brand-500 flex items-center justify-center text-slate-300 group-hover:text-brand-400 transition-colors">
+                <i data-lucide="send" class="w-4 h-4"></i>
+              </div>
+              <span>Telegram-канал</span>
+            </a>
+            <a href="https://t.me/yulnetbot" target="_blank" rel="noopener noreferrer" class="flex items-center gap-3 text-sm text-slate-400 hover:text-brand-400 transition-colors group">
+              <div class="w-8 h-8 rounded-lg bg-dark-800 border border-slate-700 group-hover:border-brand-500 flex items-center justify-center text-slate-300 group-hover:text-brand-400 transition-colors">
+                <i data-lucide="bot" class="w-4 h-4"></i>
+              </div>
+              <span>Telegram-бот</span>
+            </a>
+            <a href="https://t.me/yulnetsupport" target="_blank" rel="noopener noreferrer" class="flex items-center gap-3 text-sm text-slate-400 hover:text-brand-400 transition-colors group">
+              <div class="w-8 h-8 rounded-lg bg-dark-800 border border-slate-700 group-hover:border-brand-500 flex items-center justify-center text-slate-300 group-hover:text-brand-400 transition-colors">
+                <i data-lucide="headset" class="w-4 h-4"></i>
+              </div>
+              <span>Служба поддержки</span>
+            </a>
+          </div>
+        </div>
+
+        <div class="md:col-span-3">
+          <h4 class="text-white font-bold text-sm mb-4 uppercase tracking-wider font-mono">Правовая информация</h4>
+          <ul class="space-y-3 text-sm text-slate-400">
+            <li>
+              <a href="/privacy" class="flex items-center gap-2 hover:text-white transition-colors group">
+                <i data-lucide="shield-check" class="w-4 h-4 text-slate-500 group-hover:text-brand-400 transition-colors"></i>
+                <span>Политика конфиденциальности</span>
+              </a>
+            </li>
+            <li>
+              <a href="/terms" class="flex items-center gap-2 hover:text-white transition-colors group">
+                <i data-lucide="file-text" class="w-4 h-4 text-slate-500 group-hover:text-brand-400 transition-colors"></i>
+                <span>Пользовательское соглашение</span>
+              </a>
+            </li>
+            <li>
+              <a href="/refund" class="flex items-center gap-2 hover:text-white transition-colors group">
+                <i data-lucide="rotate-ccw" class="w-4 h-4 text-slate-500 group-hover:text-brand-400 transition-colors"></i>
+                <span>Гарантия возврата</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="pt-8 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-500 gap-4">
+        <p>© 2026 YulNET. Все права защищены.</p>
+        <p class="font-mono text-slate-600">yulnet v1 · build 2026.10.02</p>
+      </div>
+    </div>
+  </footer>
+
+  <button id="backToTop" aria-label="Наверх" class="fixed bottom-6 right-6 w-12 h-12 rounded-full bg-brand-500 hover:bg-brand-600 text-white shadow-neon items-center justify-center z-50 flex">
+    <i data-lucide="arrow-up" class="w-5 h-5"></i>
+  </button>
+
+  <script>
+    lucide.createIcons();
+
+    const scrollProgress = document.getElementById('scrollProgress');
+    const backToTop = document.getElementById('backToTop');
+    window.addEventListener('scroll', () => {
+      const h = document.documentElement.scrollHeight - window.innerHeight;
+      scrollProgress.style.width = (window.scrollY / h) * 100 + '%';
+      backToTop.classList.toggle('visible', window.scrollY > 500);
+    });
+    backToTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+
+    const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+    const mobileMenu = document.getElementById('mobileMenu');
+    const menuIconWrapper = document.getElementById('menuIconWrapper');
+    const mobileLinks = document.querySelectorAll('.mobile-link');
+
+    function setMenuIcon(name) {
+      menuIconWrapper.innerHTML = `<i data-lucide="${name}" class="w-6 h-6"></i>`;
+      lucide.createIcons();
+    }
+
+    if (mobileMenuBtn && mobileMenu) {
+      mobileMenuBtn.addEventListener('click', () => {
+        const isOpen = mobileMenu.classList.contains('open');
+        mobileMenu.classList.toggle('open');
+        setMenuIcon(isOpen ? 'menu' : 'x');
+      });
+
+      mobileLinks.forEach(link => {
+        link.addEventListener('click', () => {
+          mobileMenu.classList.remove('open');
+          setMenuIcon('menu');
+        });
+      });
+    }
+
+    const observer = new IntersectionObserver((entries, obs) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          obs.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15, rootMargin: '0px 0px -60px 0px' });
+
+    document.querySelectorAll('.scroll-anim').forEach(el => observer.observe(el));
+
+    document.querySelectorAll('a[href^="#"]').forEach(a => {
+      a.addEventListener('click', e => {
+        const href = a.getAttribute('href');
+        if (href === '#') return;
+        const target = document.querySelector(href);
+        if (target) {
+          e.preventDefault();
+          window.scrollTo({ top: target.offsetTop - 100, behavior: 'smooth' });
+        }
+      });
+    });
+  </script>
+</body>
+</html>
